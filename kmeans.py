@@ -23,7 +23,7 @@ def compare_the_values(first,secound):
     return val
         
 def compare_the_nearest_cluster(cluster,data):
-    #intialize the nearest cluster to 0
+    
     dist_measure=None
     nearest=0
     for i in range(len(cluster)):
@@ -55,27 +55,26 @@ def recal_head(cluster):
         cluster[i].head=avgl
 
        
-#read the contents of CSV file
+
 with open('cluster.csv') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',')
-    #inserting elelments in to the list
+    
     db=[]
     for row in spamreader:
         db.append(row)
-    #creating individual cluster heads
-#displaying elelments of the list
+   
 print('Db entries')
 print(db)
 
-#intialize the cluster
+
 c=[]
 
-#intialize the cluster heads
+
 for i in range(k):
     new_clust=cluster(db[i])
     c.append(new_clust)
 print('initial cluster head values')
-#print display heads
+
 for i in range(k):
     print('----cluster',i,'------')
     c[i].display_head()
@@ -83,31 +82,31 @@ for i in range(k):
 
         
 error_ratio=1
-# Iteration and including elelments in the cluster
+
 while error_ratio>0:
     prevc=copy.deepcopy(c)
     for ele in db:
         r=compare_the_nearest_cluster(c,ele)
         c[r].add_ele_cluster(ele)
 
-    # display all the elements
+    
     for clust in c:
         clust.display_ele()
-    #recalculate the avg value
+   
         recal_head(c)
         
     for i in range(k):
         print('----cluster',i,'------')
         c[i].display_head()
-    #remove the ele of cluter head for the next iter
+    
     for i in range(k):
         c[i].l=[]
-    #calculate the error
+    
         error_ratio=0
     for i in range(k):
         if c[i].head != prevc[i].head:
             error_ratio=error_ratio+1
-#final cluster ele
+
     
 
 
